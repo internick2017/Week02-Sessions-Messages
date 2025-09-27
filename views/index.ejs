@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav {
+            background: #007bff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .info {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Sessions and Messages Demo</h1>
+        
+        <!-- Flash Messages Display -->
+        <%- messages() %>
+        
+        <div class="nav">
+            <% nav.forEach(function(item) { %>
+                <a href="<%= item.link %>"><%= item.text %></a>
+            <% }); %>
+        </div>
+        
+        <div class="info">
+            <h3>Welcome to the Sessions and Messages Learning Activity!</h3>
+            <p>This application demonstrates:</p>
+            <ul>
+                <li><strong>Sessions:</strong> Server-side state management</li>
+                <li><strong>Flash Messages:</strong> Temporary messages that appear once</li>
+                <li><strong>Database Integration:</strong> PostgreSQL session storage</li>
+                <li><strong>Express.js:</strong> Web application framework</li>
+            </ul>
+        </div>
+        
+        <div class="info">
+            <h4>How Flash Messages Work:</h4>
+            <p>Flash messages are stored in the session, displayed once, then automatically removed. They're perfect for:</p>
+            <ul>
+                <li>Success notifications</li>
+                <li>Error messages</li>
+                <li>Information alerts</li>
+                <li>Form validation feedback</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
