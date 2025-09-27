@@ -1,17 +1,20 @@
-# Sessions and Messages Learning Activity
+# Week 2: Sessions, Messages, and Form Validation
 
 **Course**: CSE340.004 - Web Backend Development  
 **Student**: Nick Daniel Alejandro Granados Lares  
-**Activity**: Sessions and Messages Implementation
+**Week**: 2 - Sessions, Messages, and Form Validation  
+**Repository**: Complete Express.js application with validation system
 
 ## 🎯 Learning Objectives
 
-This activity demonstrates how to implement sessions and flash messages in an Express.js application, including:
+This repository demonstrates a complete Express.js application implementing:
 
 - **Sessions**: Server-side state management using express-session
 - **Flash Messages**: Temporary messages that appear once using connect-flash
 - **Database Integration**: PostgreSQL session storage with connect-pg-simple
-- **Message Display**: EJS template integration with express-messages
+- **Form Validation**: Client-side HTML5 and server-side express-validator
+- **User Authentication**: Login and registration system
+- **Security**: Input sanitization and validation
 
 ## 🚀 Features Implemented
 
