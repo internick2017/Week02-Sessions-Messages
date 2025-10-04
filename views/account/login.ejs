@@ -140,6 +140,15 @@
         <!-- Flash Messages Display -->
         <%- messages() %>
         
+        <!-- Validation Errors Display -->
+        <% if (errors) { %>
+          <ul class="notice">
+         <% errors.array().forEach(error => { %>
+           <li><%= error.msg %></li>
+        <%  }) %>
+         </ul>
+        <% } %>
+        
         <div class="nav">
             <% nav.forEach(function(item) { %>
                 <a href="<%= item.link %>"><%= item.text %></a>
@@ -149,7 +158,7 @@
         <form action="/account/login" method="POST">
             <div class="form-group">
                 <label for="account_email">Email Address:</label>
-                <input type="email" id="account_email" name="account_email" required placeholder="Enter a valid email address">
+                <input type="email" id="account_email" name="account_email" required placeholder="Enter a valid email address" value="<%= locals.account_email %>">
             </div>
             
             <div class="form-group">

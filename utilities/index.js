@@ -6,8 +6,8 @@ const getNav = async () => {
   return [
     { link: '/', text: 'Home' },
     { link: '/account', text: 'My Account' },
-    { link: '/login', text: 'Login' },
-    { link: '/register', text: 'Register' }
+    { link: '/account/login', text: 'Login' },
+    { link: '/account/register', text: 'Register' }
   ];
 };
 

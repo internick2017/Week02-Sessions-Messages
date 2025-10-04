@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav {
+            background: #dc3545;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .admin-panel {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .admin-panel h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .system-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .system-info h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        .info-label {
+            font-weight: bold;
+            width: 150px;
+            color: #6c757d;
+        }
+        .info-value {
+            color: #495057;
+        }
+        .admin-warning {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .admin-warning h4 {
+            margin-top: 0;
+            color: #721c24;
+        }
+        .warning-text {
+            color: #721c24;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><%= title %></h1>
+        
+        <div class="nav">
+            <% nav.forEach(function(item) { %>
+                <a href="<%= item.link %>"><%= item.text %></a>
+            <% }); %>
+        </div>
+        
+        <div class="admin-panel">
+            <h3>🛡️ Admin Panel</h3>
+            <p><%= adminData.message %></p>
+            <p><strong>Accessed at:</strong> <%= adminData.timestamp %></p>
+        </div>
+
+        <div class="system-info">
+            <h4>💻 System Information</h4>
+            <div class="info-row">
+                <div class="info-label">Node.js Version:</div>
+                <div class="info-value"><%= adminData.systemInfo.nodeVersion %></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Platform:</div>
+                <div class="info-value"><%= adminData.systemInfo.platform %></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Server Uptime:</div>
+                <div class="info-value"><%= Math.floor(adminData.systemInfo.uptime / 60) %> minutes</div>
+            </div>
+        </div>
+
+        <div class="admin-warning">
+            <h4>⚠️ Admin Access Notice</h4>
+            <div class="warning-text">This area is restricted to administrators only.</div>
+            <div class="warning-text">JWT token contains elevated permissions for admin access.</div>
+            <div class="warning-text">All admin actions are logged and monitored.</div>
+        </div>
+    </div>
+</body>
+</html>

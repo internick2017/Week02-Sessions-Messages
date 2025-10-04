@@ -6,6 +6,7 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config();
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
 
 // Session and Database Requirements
 const session = require("express-session");
@@ -16,6 +17,7 @@ const baseController = require('./controllers/baseController');
 
 // Import Routes
 const accountRoute = require('./routes/accountRoute');
+const protectedRoute = require('./routes/protectedRoute');
 
 // Create Express Application
 const app = express();
@@ -32,6 +34,9 @@ app.use(express.json());
 // Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+// Cookie Parser Middleware
+app.use(cookieParser());
 
 /* ***********************
  * Middleware
@@ -63,6 +68,9 @@ app.get('/', baseController.buildHome);
 // Account Routes
 app.use('/account', accountRoute);
 
+// Protected Routes
+app.use('/protected', protectedRoute);
+
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);
@@ -89,10 +97,14 @@ app.listen(PORT, () => {
   console.log(`💻 Platform: ${process.platform} ${process.arch}`);
   console.log('\n📋 Available endpoints:');
   console.log('   GET  /              - Home page with flash messages demo');
-  console.log('   GET  /account       - My Account page');
+  console.log('   GET  /account       - My Account page (JWT protected)');
   console.log('   GET  /account/login - Login page');
   console.log('   GET  /account/register - Registration page');
   console.log('   POST /account/register - Process registration');
+  console.log('   POST /account/login - Process login (JWT)');
+  console.log('   GET  /account/logout - Logout (JWT)');
+  console.log('   GET  /protected     - Protected content (JWT required)');
+  console.log('   GET  /protected/admin - Admin panel (Admin JWT required)');
   console.log('\n🛑 Press Ctrl+C to stop the server');
 });
 
