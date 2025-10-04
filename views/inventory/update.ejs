@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav {
+            background: #007bff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0,123,255,0.3);
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .current-item {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .current-item h4 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .current-item p {
+            margin: 5px 0;
+            color: #495057;
+        }
+        
+        /* HTML5 Validation Styling */
+        input:required:invalid, input:focus:invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+        }
+        
+        input:required:valid {
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><%= title %></h1>
+        
+        <!-- Flash Messages Display -->
+        <%- messages() %>
+        
+        <div class="nav">
+            <% nav.forEach(function(item) { %>
+                <a href="<%= item.link %>"><%= item.text %></a>
+            <% }); %>
+        </div>
+        
+        <!-- Current Item Information -->
+        <div class="current-item">
+            <h4>📝 Updating Inventory Item</h4>
+            <p><strong>Current Name:</strong> <%= inventoryItem.inv_name %></p>
+            <p><strong>Current Price:</strong> $<%= parseFloat(inventoryItem.inv_price).toLocaleString() %></p>
+            <p><strong>Current Year:</strong> <%= inventoryItem.inv_year %></p>
+            <p><strong>Current Color:</strong> <%= inventoryItem.inv_color %></p>
+        </div>
+        
+        <!-- Validation Errors Display -->
+        <% if (errors) { %>
+          <div class="error">
+            <h4>Please correct the following errors:</h4>
+            <ul>
+             <% errors.array().forEach(error => { %>
+               <li><%= error.msg %></li>
+            <%  }) %>
+            </ul>
+          </div>
+        <% } %>
+        
+        <form action="/inventory/update" method="POST">
+            <!-- Hidden field for inventory ID -->
+            <input type="hidden" name="inv_id" value="<%= inventoryItem.inv_id %>">
+            
+            <div class="form-group">
+                <label for="inv_name">Inventory Name:</label>
+                <input type="text" id="inv_name" name="inv_name" required value="<%= inventoryItem.inv_name %>">
+            </div>
+            
+            <div class="form-group">
+                <label for="inv_description">Description:</label>
+                <textarea id="inv_description" name="inv_description" required><%= inventoryItem.inv_description %></textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inv_image">Image Path:</label>
+                    <input type="text" id="inv_image" name="inv_image" required value="<%= inventoryItem.inv_image %>">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inv_thumbnail">Thumbnail Path:</label>
+                    <input type="text" id="inv_thumbnail" name="inv_thumbnail" required value="<%= inventoryItem.inv_thumbnail %>">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inv_price">Price:</label>
+                    <input type="number" id="inv_price" name="inv_price" required min="0" step="0.01" value="<%= inventoryItem.inv_price %>">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inv_year">Year:</label>
+                    <input type="number" id="inv_year" name="inv_year" required min="1900" max="<%= new Date().getFullYear() + 1 %>" value="<%= inventoryItem.inv_year %>">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inv_miles">Miles:</label>
+                    <input type="number" id="inv_miles" name="inv_miles" required min="0" value="<%= inventoryItem.inv_miles %>">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inv_color">Color:</label>
+                    <input type="text" id="inv_color" name="inv_color" required value="<%= inventoryItem.inv_color %>">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="classification_id">Classification:</label>
+                <select id="classification_id" name="classification_id" required>
+                    <option value="">Select a classification</option>
+                    <% classifications.forEach(function(classification) { %>
+                        <option value="<%= classification.classification_id %>" 
+                                <%= classification.classification_id == inventoryItem.classification_id ? 'selected' : '' %>>
+                            <%= classification.classification_name %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn">Update Inventory Item</button>
+                <a href="/inventory" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

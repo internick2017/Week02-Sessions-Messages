@@ -18,6 +18,7 @@ const baseController = require('./controllers/baseController');
 // Import Routes
 const accountRoute = require('./routes/accountRoute');
 const protectedRoute = require('./routes/protectedRoute');
+const inventoryRoute = require('./routes/inventoryRoute');
 
 // Create Express Application
 const app = express();
@@ -71,6 +72,9 @@ app.use('/account', accountRoute);
 // Protected Routes
 app.use('/protected', protectedRoute);
 
+// Inventory Routes
+app.use('/inventory', inventoryRoute);
+
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);
@@ -105,6 +109,9 @@ app.listen(PORT, () => {
   console.log('   GET  /account/logout - Logout (JWT)');
   console.log('   GET  /protected     - Protected content (JWT required)');
   console.log('   GET  /protected/admin - Admin panel (Admin JWT required)');
+  console.log('   GET  /inventory     - Inventory management (JWT required)');
+  console.log('   GET  /inventory/update/:id - Update inventory item (JWT required)');
+  console.log('   POST /inventory/update - Process inventory update (JWT required)');
   console.log('\n🛑 Press Ctrl+C to stop the server');
 });
 
